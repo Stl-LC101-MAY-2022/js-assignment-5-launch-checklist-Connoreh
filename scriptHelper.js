@@ -48,7 +48,9 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     const itemNotReady = document.getElementById('faultyItems');
  
     if (validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty") {
+        itemNotReady.style.visibility = 'hidden';
         alert("All Fields Required!");
+        // itemNotReady.style.visibility = 'hidden';
     }
       else if (validateInput(pilot) !== "Not A Number" || validateInput(copilot) !== "Not A Number" || validateInput(fuelLevel) !== "Is a Number" || validateInput(cargoLevel) !== "Is a Number") {
         alert("Please enter valid information for each field.")
@@ -63,6 +65,9 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     }
 
     if (validateInput(fuelLevel) === "Is a Number"){
+        if (Number(fuelLevel) >= 10000) {
+            fuelStatus.innerHTML = 'Fuel Check: Ready For Launch!'
+        }
         if (Number(fuelLevel) < 10000) {
             itemNotReady.style.visibility = 'visible';
             launchStatus.innerHTML = 'Shuttle not ready for launch';
@@ -75,9 +80,13 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     
 
     if (validateInput(cargoLevel) === 'Is a Number') {
+        if(Number(cargoLevel) <= 10000) {
+            // itemNotReady.style.visibility = 'hidden'
+            cargoStatus.innerHTML = 'Cargo Check: Ready For Launch!'
+        }
         if (Number(cargoLevel) > 10000 ) {
             itemNotReady.style.visibility = 'visible';
-            cargoStatus.innerHTML = 'Shuttle not ready for launch';
+            cargoStatus.innerHTML = 'Too much weight for the shuttle to launch';
             launchStatus.innerHTML = 'Shuttle not ready for launch';
             launchStatus.style.color = 'red';
 
@@ -89,6 +98,11 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
         if (validateInput(pilot) === 'Not A Number' && validateInput(copilot) === "Not A Number" && validateInput(fuelLevel) === 'Is a Number' && Number(fuelLevel) >= 10000 && validateInput(cargoLevel) === "Is a Number" && Number(cargoLevel) <= 10000) {
                 launchStatus.style.color = 'green';
                 launchStatus.innerHTML = 'Shuttle is ready for Launch';
+        }
+        if (validateInput(pilot) !== 'Not A Number' || validateInput(copilot) !== "Not A Number" || validateInput(fuelLevel) !== 'Is a Number' || Number(fuelLevel) < 10000 ||  validateInput(cargoLevel) !== "Is a Number" || Number(cargoLevel) > 10000 ){
+            itemNotReady.style.visibility = 'hidden'
+            launchStatus.innerHTML = 'Awaiting Information Before Launch';
+            launchStatus.style.color = 'black'
         }
     }
  

@@ -30,6 +30,7 @@ window.addEventListener("load", function() {
         // }
         e.preventDefault();
         formSubmission(document, list, pilotName.value, copilotName.value, fuelLevel.value, cargoMass.value);
+        e.preventDefault();
         // console.log(pickPlanet(planets));
         // console.log(pilotName.value)
         // console.log(validateInput)
